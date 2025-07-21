@@ -1,0 +1,545 @@
+/* In main.css - REPLACE the body section with this: */
+body {
+    font-family: 'Oxanium';
+    color: white;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.game-desktop {
+    position: relative; /* Needed for overlay positioning */
+}
+
+.game-desktop::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* 40% opacity black overlay */
+    z-index: -1; /* Stays behind content */
+}
+
+.game-desktop {
+    background: 
+        url('/media/background.png') no-repeat center center fixed,
+        #111;
+    background-size: cover;
+    
+}
+
+body.completed-page {
+    position: relative;
+}
+
+body.completed-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* 70% opacity - darker than desktop */
+    z-index: -1;
+}
+
+body.completed-page {
+    background: 
+        url('../media/Completed.png') no-repeat center center fixed,
+        #222;
+    background-size: cover;
+    
+}
+
+body.index-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgb(134, 1, 94) 0%, rgba(0,0,0,1) 63%);
+    z-index: -1;
+}
+
+h1 {
+    font-size: 60px;
+    margin-left: 5%;
+}
+
+.advisor {
+    font-size: 30px;
+    bottom:0px;
+}
+
+.start-button {
+    font-family: 'Oxanium', monospace;
+    font-size: 1.5rem;
+    margin-right: 5%;
+    padding: 0.75rem 2rem;
+    color: #ff96cb;
+    background: transparent;
+    border: 2px solid #ff69b4;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+  }
+  
+.start-button::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffaed6;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.start-button:hover::before {
+    opacity: 0.2;
+}
+
+.start-button:hover {
+    box-shadow: 0 0 15px #ff69b4, 0 0 30px #ff69b4;
+    transform: scale(1.03);
+}
+
+.start-button:active {
+    box-shadow: 0 0 5px #ff3c9e;
+    transform: scale(0.98);
+}
+
+
+
+
+.corner-box {
+    position: relative;
+    width: 700px;
+    height: 500px;
+    color: white;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto;
+    background: none;
+  }
+  
+.corner-box::before,
+.corner-box::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid white;
+    border-radius: 0;
+}
+
+.corner-box::before {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner-box::after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+.corner-box span::before,
+.corner-box span::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid white;
+    border-radius: 0;
+}
+
+.corner-box span::before {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner-box span::after {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+}
+
+.birthday-notification {
+    position: relative;
+    bottom: -1100px; /* show it */
+}
+
+@keyframes skew {
+    0%, 30% { transform: none; }
+    30.2% { transform: skewX(50deg); }
+    30.4% { transform: skewX(-50deg); }
+    31% { transform: none; }
+}
+
+@keyframes ppulse-glow {
+    0% {
+        filter: drop-shadow(0 0 5px #FF69B4); /* hot pink */
+    }
+    50% {
+        filter: drop-shadow(0 0 15px #FF69B4) brightness(1);
+    }
+    100% {
+        filter: drop-shadow(0 0 5px #FF69B4);
+    }
+}
+
+
+
+/* Birthday Popup (bottom-right) */
+.birthday-notification.visible {
+    position: fixed;
+    bottom: -850px; /* hidden */
+    right: 20px;
+    background: #ffb6c199;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+    animation:
+        skew 0.6s ease-in-out,
+        ppulse-glow 1.5s ease-in-out infinite;
+    transition: bottom 0.5s ease-in-out, transform 0.3s ease;
+}
+
+.birthday-notification.visible:hover {
+  transform: scale(1.1); /* 10% bigger on hover */
+  cursor: pointer; /* optional, if not already set */
+}
+
+.birthday-notification-icon {
+  position: absolute;  
+  top: 10%;           
+  left: -10px;         
+  transform: translateY(-50%);
+  width: 35px !important;
+  height: 35px !important;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+
+/* Matrix Hacked Mode */
+body.hacked-mode {
+  overflow: hidden;
+  background: black !important;
+  background-size: cover;
+}
+
+#matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+/* Make sure UI remains usable */
+.taskbar, .terminal-window, .browser-window {
+  position: relative;
+  z-index: 1;
+}
+
+body {
+    background: #111;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Only apply these styles in hacked mode */
+body.hacked-mode {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+body.hacked-mode #root {
+    display: block; /* Only show in hacked mode */
+}
+
+#text {
+    position: relative;
+    color: red;
+    mix-blend-mode: screen;
+    white-space: nowrap;
+    filter: blur(1px);
+    font-size: 5vw; /* Responsive font size */
+    opacity: 0;
+    transition: opacity 0.4s;
+    position: fixed; 
+  top: 600%;
+  left: 15%;
+  text-align: center;
+}
+
+body.hacked-mode #text {
+    opacity: 1;
+    animation: skew 2s infinite, flash 0.04s infinite;
+}
+
+#text::before,
+#text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    mix-blend-mode: screen;
+}
+
+#text::after {
+    color: blue;
+    left: 6px;
+    animation: move 1.5s infinite;
+}
+
+#text::before {
+    color: limegreen;
+    left: 3.6px;
+    top: -2.4px;
+}
+
+.line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: blue;
+    mix-blend-mode: screen;
+    filter: blur(1px);
+    display: none; /* Hidden by default */
+}
+
+body.hacked-mode .line {
+    display: block; /* Only show in hacked mode */
+    animation: lines 5s infinite;
+}
+
+.line::before,
+.line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    mix-blend-mode: screen;
+}
+
+.line::after {
+    top: 2px;
+    background: red;
+}
+
+.line::before {
+    top: -2px;
+    background: limegreen;
+}
+
+#activate-effect {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: #20C20E;
+    color: black;
+    border: none;
+    font-family: monospace;
+    cursor: pointer;
+    z-index: 100;
+}
+
+/* Animations */
+@keyframes skew {
+    0%    { transform: none; }
+    30%   { transform: none; }
+    30.2% { transform: skewX(50deg); }
+    30.4% { transform: skewX(-50deg); }
+    31%   { transform: none; }
+}
+
+@keyframes move {
+    0%   { transform: translateX(0); }
+    30%  { transform: translateX(0); }
+    31%  { transform: translateX(-6px); }
+    33%  { transform: translateX(0); }
+    98%  { transform: translateX(0); }
+    100% { transform: translateX(6px); }
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.5; }
+}
+
+@keyframes lines {
+    0%, 100% { opacity: 0.1; }
+    50%      { opacity: 1; }
+}
+
+
+ /* Glow effect for unread messages */
+.icon.messages.glow {
+    animation: pulse-glow 1.5s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        filter: drop-shadow(0 0 5px #3B74C9);
+    }
+    50% {
+        filter: drop-shadow(0 0 15px #3B74C9) brightness(1.7);
+    }
+    100% {
+        filter: drop-shadow(0 0 5px #3B74C9);
+    }
+}
+
+.icon.messages {
+  position: relative; /* Make sure parent is relative */
+}
+
+.notification-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25px !important;; 
+  height: 25px !important;;
+  pointer-events: none; /* So it doesn't interfere with clicking */
+  transition: opacity 0.3s ease;
+  opacity: 1; /* visible by default along with glow */
+  z-index: 10;
+}
+
+/* Hide notification when glow is removed */
+.icon.messages:not(.glow) .notification-icon {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* CSS scoped only to b4soum.site page */
+#browser-content .b4soum-site * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+#browser-content .b4soum-site {
+  background-color: #d7b9d8;
+}
+
+#browser-content .b4soum-site .top-bar {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#browser-content .b4soum-site .menu-icon,
+#browser-content .b4soum-site .lock-icon {
+  font-size: 18px;
+}
+
+#browser-content .b4soum-site .url {
+  color: #333;
+  font-size: 13px;
+}
+
+#browser-content .b4soum-site .banner {
+  background-image: url('/media/Melody-banner.png');
+  background-repeat: repeat-x;
+  background-size: cover;
+  height: 210px;
+}
+
+#browser-content .b4soum-site .login-section {
+  background-color: #d7b9d8;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+#browser-content .b4soum-site .login-box {
+  display: flex;
+  align-items: center;
+  background-color: #e4c6e6;
+  padding: 20px;
+  border-radius: 10px;
+  gap: 30px;
+  max-width: 600px;
+  width: 100%;
+}
+
+#browser-content .b4soum-site .kuromi-icon img {
+  width: 125px;
+  height: 125px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-top: -200px; /* Move image up */
+}
+
+#browser-content .b4soum-site .form-section {
+  flex: 1;
+}
+
+#browser-content .b4soum-site .form-section h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+}
+
+#browser-content .b4soum-site form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#browser-content .b4soum-site input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+#browser-content .b4soum-site button {
+  align-self: flex-start;
+  background-color: white;
+  border: none;
+  border-radius: 30%;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+

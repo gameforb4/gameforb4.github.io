@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decrypted</title>
+    <link rel="icon" type="image/x-icon" href="media/icons/favicon.ico">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/gui.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
+</head>
+<body class="game-desktop">
+    <div class="overlay" id="overlay"></div>
+    <div class="content" id="gameContent">
+  <div style="position: fixed; top: 25px; right: 25px; color: white; font-family: Oxanium; font-size: 20px; z-index: 9999;">Level 1</div>
+      <div class="taskbar">
+            <div class="icon terminal">
+              <button class="invisible" onclick="showTerminal()"><img src="media/icons/terminal.png" alt="Terminal"></button>
+            </div>
+            <div class="icon browser">
+              <button class="invisible" onclick="openBrowserFromGUI()"><img src="media/icons/browser.png" alt="Browser"></button>
+            </div>
+            <div class="icon messages glow" style="position: relative;">
+  <button class="invisible" onclick="showMessagesApp()">
+    <img src="media/icons/messages.png" alt="Messages">
+  </button>
+  <img src="media/icons/notification.png" alt="Notification" class="notification-icon" />
+</div>
+            <div class="icon restart">
+              <button class="invisible" onclick="restart()"><img src="media/icons/restart.png" alt="Restart"></button>
+            </div>
+            <div class="icon text">
+              <p>
+                <span id="date">Error</span>
+              </p>
+          </div>
+        </div>
+        <div id="terminal-hide">
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <div class="close-button" title="Close"></div>
+              <div class="window-dot yellow"></div>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+              Slash version 2.1.234 (Stable)<br>
+              Type <code>help</code> for a list of possible commands.
+            </div>
+            <input type="text" class="terminal-input" placeholder="Type a command..." id="terminal-input">
+          </div>
+        </div>
+        <div class="browser-window hidden" id="browser">
+          <div class="browser-header" id="browser-header">
+            <div class="window-controls">
+              <div class="window-dot red"></div>
+              <div class="window-dot yellow"></div>
+              <div class="window-dot green"></div>
+            </div>
+            <span class="browser-title">Slash Browser</span>
+          </div>
+          <div class="browser-url-bar">
+            <input type="text" id="browser-url" placeholder="Enter URL..." />
+          </div>
+          <div class="browser-content" id="browser-content">
+            <p>Welcome to Slash Browser. Enter any URL to start.</p>
+          </div>
+        </div>
+        <div id="messages-app" class="messages-app">
+          <div class="messages-header" id="messages-header">
+            <div class="close-button" id="close-messages" title="Close"></div>
+            <span class="window-title">Messages</span>
+          </div>
+          <div class="messages-body" id="messages-body"></div>
+          <div class="messages-footer">
+            <input type="text" id="message-input" placeholder="Type your answer...">
+            <button id="send-message">Send</button>
+          </div>
+        </div>
+        <div id="text-editor" class="window hidden">
+          <div class="text-editor-header" id="text-editor-header">
+            <div class="window-controls">
+              <div class="window-dot red"></div>
+              <div class="window-dot yellow"></div>
+              <div class="window-dot green"></div>
+            </div>
+            <div class="editor-title">Text Editor</div>
+          </div>
+          <div class="text-editor-toolbar">
+            <button id="save-file">Save</button>
+          </div>
+          <textarea id="editor-content" placeholder="Start typing..."></textarea>
+        </div>        
+    </div>
+    <script src="js/main_transition.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/terminal.js"></script>
+    <script src="js/browser.js"></script>
+    <script src="js/editor.js"></script>
+    <script>
+      (function() {
+        const messagesApp = document.getElementById("messages-app");
+        const messagesBody = document.getElementById("messages-body");
+        const inputField = document.getElementById("message-input");
+        const sendBtn = document.getElementById("send-message");
+        const closeMessages = document.getElementById("close-messages");
+
+        const messagesIcon = document.querySelector(".icon.messages.glow");
+
+        // Add glow to button when the page loads
+  window.addEventListener("DOMContentLoaded", () => {
+    const msgBtn = document.getElementById("messages-button");
+    msgBtn.classList.add("glow");
+  });
+
+  function showMessagesApp() {
+    const msgBtn = document.getElementById("messages-button");
+    msgBtn.classList.remove("glow");
+
+    const messagesApp = document.getElementById("messages-app");
+    const messagesBody = document.getElementById("messages-body");
+
+    // Clear previous content
+    messagesApp.style.display = "flex";
+    messagesBody.innerHTML = '';
+    
+    // Reset state and show first message
+    currentQuestion = -1;
+    collectedAnswers = [];
+    loadMessage(conversation[0].text);
+  }
+      
+        let currentStage = 0;
+      
+        const conversation = [
+  {
+    from: "Omar",
+    text: "Hey basoumti answer these questions to get the decryption keys. Reply with anything to start:",
+    questions: [
+      {
+        text: "Question 1: Where did we first meet (map)?",
+        answer: "Breeze", // CHANGE TO YOUR ANSWER
+        response: "Correct you have the first key (Breeze)"
+      },
+      {
+        text: "Question 2: Jett do you want a .... skin?",
+        answer: "Vandal", // CHANGE TO YOUR ANSWER
+        response: "flip that girl btw. you got your second key tho (Vandal)."
+      },
+      {
+        text: "Question 3: Our virtual marriage certificate Number?",
+        answer: "FY4JXBBQPAXCJH", // CHANGE TO YOUR ANSWER
+        response: "November 23rd 2024? times flies eh (FY4JXBBQPAXCJH)"
+      },
+      {
+        text: "Question 4: Your favorite pet name (at the moment)?",
+        answer: "Kajo", // CHANGE TO YOUR ANSWER
+        response: "Mine too to be honest (Kajo)"
+      }
+    ]
+  }
+];
+      
+        function loadMessage(text) {
+          const message = document.createElement("div");
+          message.className = "message from-npc";
+          message.textContent = text;
+          messagesBody.appendChild(message);
+          messagesBody.scrollTop = messagesBody.scrollHeight;
+        }
+      
+        function addPlayerMessage(text) {
+          const message = document.createElement("div");
+          message.className = "message from-player";
+          message.textContent = text;
+          messagesBody.appendChild(message);
+          messagesBody.scrollTop = messagesBody.scrollHeight;
+        }
+      
+        let currentQuestion = -1; // Start at -1 to show initial message first
+let collectedAnswers = [];
+
+sendBtn.addEventListener("click", () => {
+  const answer = inputField.value.trim();
+  if (!answer) return;
+
+  addPlayerMessage(answer);
+
+  // If no question is active yet, start the questions
+  if (currentQuestion === -1) {
+    currentQuestion = 0;
+    loadMessage(conversation[0].questions[currentQuestion].text);
+  } 
+  // If answering a question
+  else if (currentQuestion < conversation[0].questions.length) {
+    const q = conversation[0].questions[currentQuestion];
+    
+    if (answer.toLowerCase() === q.answer.toLowerCase()) {
+      collectedAnswers.push(q.answer);
+      loadMessage(q.response);
+      currentQuestion++;
+      
+      if (currentQuestion < conversation[0].questions.length) {
+        setTimeout(() => {
+          loadMessage(conversation[0].questions[currentQuestion].text);
+        }, 1000);
+      } else {
+        loadMessage("All keys collected! Now decrypt 'key.enc' (In home folder) using these keys combined with (-) and check capital letters.");
+      }
+    } else {
+      loadMessage("Wrong answer. Try again!");
+    }
+  }
+
+  inputField.value = "";
+});
+
+closeMessages.addEventListener("click", () => {
+          messagesApp.style.display = "none";
+        });
+
+// Show initial message when app opens
+window.showMessagesApp = function() {
+  if (messagesIcon) {
+    messagesIcon.classList.remove("glow"); // Remove glow & hide notification when open
+  }
+  messagesApp.style.display = "flex";
+  messagesBody.innerHTML = '';
+  currentQuestion = -1;
+  collectedAnswers = [];
+  loadMessage(conversation[0].text); // Shows "Hey basoumti answer these..."
+};
+      })();
+
+      function makeDraggable(element, handle) {
+        let offsetX = 0;
+        let offsetY = 0;
+        let isDragging = false;
+
+        handle.addEventListener("mousedown", function (e) {
+          isDragging = true;
+          offsetX = e.clientX - element.offsetLeft;
+          offsetY = e.clientY - element.offsetTop;
+          document.body.style.userSelect = "none";
+        });
+
+        document.addEventListener("mousemove", function (e) {
+          if (isDragging) {
+            element.style.left = (e.clientX - offsetX) + "px";
+            element.style.top = (e.clientY - offsetY) + "px";
+          }
+        });
+
+        document.addEventListener("mouseup", function () {
+          isDragging = false;
+          document.body.style.userSelect = "auto";
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+      const messagesApp = document.getElementById("messages-app");
+      const messagesHeader = document.getElementById("messages-header");
+
+      if (messagesApp && messagesHeader) {
+        makeDraggable(messagesApp, messagesHeader);
+      } else {
+        console.warn("Messages app or header not found in DOM.");
+      }
+    });
+      </script>
+</body>
+</html>
