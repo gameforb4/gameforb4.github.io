@@ -542,4 +542,25 @@ body.hacked-mode .line {
   line-height: 1;
 }
 
+.corner-box {
 
+    height: 650px;
+    width: 705px;
+}
+
+.title-text {
+  font-size: 20px;
+  margin-top: -15px;
+  color: #ffffff;
+  font-weight: bold;
+  position: relative;
+  left: 0px;  /* move right */
+  top: -10px;  /* move up */
+}
+
+.top-text {
+
+margin-top: 0px;
+margin-left: 0px;
+
+}
